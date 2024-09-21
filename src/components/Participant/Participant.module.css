@@ -1,0 +1,15 @@
+.partCard {
+  flex-direction: column;
+  gap: 8px;
+  display: flex;
+  background-color: white;
+}
+
+.partInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.partName {
+  font-weight: bold;
+}

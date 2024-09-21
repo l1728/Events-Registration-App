@@ -1,0 +1,9 @@
+.title {
+  margin-left: 30px;
+  font-size: x-large;
+  padding-top: 16px;
+  color: black;
+  text-shadow: 1px 1px 0 #000000, 2px 2px 0 #777777, 3px 3px 0 #666666,
+    4px 4px 0 #ffffff, 5px 5px 0 #555555, 6px 6px 0 #444444, 7px 7px 0 #333333,
+    8px 8px 7px #111111;
+}

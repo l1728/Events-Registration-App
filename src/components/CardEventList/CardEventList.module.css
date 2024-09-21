@@ -1,0 +1,62 @@
+/* .cardContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  padding: 20px;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+.eventCard {
+  flex: 0 0 calc(25% - 20px);
+  margin: 10px;
+  box-sizing: border-box;
+  min-width: 500px;
+  max-width: 600px;
+}
+
+.cardContainer::-webkit-scrollbar {
+  height: 10px;
+}
+
+.cardContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.cardContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
+.cardContainer {
+  display: flex;
+  flex-wrap: nowrap; /* Використовуйте nowrap для горизонтального скролу */
+  justify-content: flex-start; /* Картки починаються зліва */
+  padding: 20px;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+.eventCard {
+  flex: 0 0 300px; /* Встановлюємо фіксовану ширину картки */
+  height: 400px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 300px; /* Мінімальна ширина картки */
+  max-width: 300px; /* Максимальна ширина картки */
+  margin: 10px;
+}
+
+.cardContainer::-webkit-scrollbar {
+  height: 10px;
+}
+
+.cardContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.cardContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
