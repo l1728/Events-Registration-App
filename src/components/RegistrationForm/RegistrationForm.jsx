@@ -1,15 +1,7 @@
-// import { GoogleSpreadsheet } from 'google-spreadsheet';
 import { useState } from 'react';
-import axios from 'axios';
-
-// const SHEET_ID =
-const SPREADSHEET_ID = '16V0Yg-Vz9LcqHBcrUjGEx_lfA38l4c3X4zq4t0VikDE';
-const API_KEY = 'AIzaSyBGLpJ8vDTlkxn2dS7quFPn7qpiVdn3Rsg';
+import styles from './RegistrationForm.module.css';
 
 const RegistrationForm = ({ eventId, onRegister }) => {
-  console.log('Received eventId:', eventId);
-  console.log('Received onRegister function:', onRegister);
-
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -19,61 +11,38 @@ const RegistrationForm = ({ eventId, onRegister }) => {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log(`Field changed: ${name} = ${value}`);
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const formatDate = date => {
-    const d = new Date(date);
-    let month = '' + (d.getMonth() + 1);
-    let day = '' + d.getDate();
-    const year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-
-    const formattedDate = formatDate(formData.dateOfBirth);
-    console.log('Formatted Date:', formattedDate);
-
     try {
-      const response = await axios.post(
-        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/ParticipantsSheet1:append?valueInputOption=USER_ENTERED&key=${API_KEY}`,
-        {
-          majorDimension: 'ROWS',
-          values: [
-            [
-              eventId,
-              formData.fullName,
-              formData.email,
-              formattedDate,
-              formData.eventSource,
-            ],
-          ],
-        }
-      );
-      console.log('Response:', response);
-      if (response.status === 200) {
-        alert('Data saved!');
-        onRegister(); // Виклик функції для оновлення списку учасників
+      const response = await fetch('http://localhost:5173/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...formData, eventId }),
+      });
+
+      if (response.ok) {
+        onRegister(); // Виклик функції для обробки успішної реєстрації
+        setFormData({
+          fullName: '',
+          email: '',
+          dateOfBirth: '',
+          eventSource: '',
+        });
+      } else {
+        console.error('Registration failed');
       }
     } catch (error) {
-      console.error('Error saving data:', error);
-      alert('Failed to save data.');
+      console.error('Error:', error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.registrationForm}>
       <label>
         Full Name:
         <input
@@ -81,6 +50,7 @@ const RegistrationForm = ({ eventId, onRegister }) => {
           name="fullName"
           value={formData.fullName}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -90,6 +60,7 @@ const RegistrationForm = ({ eventId, onRegister }) => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -99,6 +70,7 @@ const RegistrationForm = ({ eventId, onRegister }) => {
           name="dateOfBirth"
           value={formData.dateOfBirth}
           onChange={handleChange}
+          required
         />
       </label>
       <label>
@@ -108,12 +80,13 @@ const RegistrationForm = ({ eventId, onRegister }) => {
           value={formData.eventSource}
           onChange={handleChange}
         >
+          <option value="">Select</option>
           <option value="socialMedia">Social Media</option>
           <option value="friends">Friends</option>
           <option value="self">Found Myself</option>
         </select>
       </label>
-      <button type="submit">Register</button>
+      <button type="submit">Register for Event {eventId}</button>
     </form>
   );
 };

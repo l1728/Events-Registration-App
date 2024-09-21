@@ -7,7 +7,7 @@ import Register from './components/pages/Register/Register.jsx';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import ToastNotification from './components/ToastNotification/ToastNotification.jsx';
-// import { parseDate } from './components/utils/dateUtils.js';
+import Navigation from './components/Navigation/Navigation.jsx';
 
 const SPREADSHEET_ID = '16V0Yg-Vz9LcqHBcrUjGEx_lfA38l4c3X4zq4t0VikDE';
 const API_KEY = 'AIzaSyBGLpJ8vDTlkxn2dS7quFPn7qpiVdn3Rsg';
@@ -25,11 +25,11 @@ const App = () => {
         );
         const rows = response.data.values;
         const formattedEvents = rows.slice(1).map(row => ({
-          id: row[0], // Event ID
-          title: row[1], // Event Title
-          description: row[2], // Event Description
-          date: row[3], // Парсинг дати
-          organizer: row[4], // Organizer
+          id: row[0],
+          title: row[1],
+          description: row[2],
+          date: row[3],
+          organizer: row[4],
         }));
         setEvents(formattedEvents);
       } catch (error) {
@@ -43,7 +43,8 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <div>
+      <Navigation />
       {error && <div className="error-message">{error}</div>}
       <Routes>
         <Route path="/" element={<Home events={events} loading={loading} />} />
@@ -52,11 +53,8 @@ const App = () => {
       </Routes>
       <ToastContainer />
       <ToastNotification />
-    </>
+    </div>
   );
 };
 
 export default App;
-{
-  /* <Route path="/event/:eventId" element={<AboutEvent />} />; */
-}

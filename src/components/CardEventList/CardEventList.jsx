@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import css from './CardEventList.module.css';
 import EventCard from './../EventCard/EventCard.jsx';
+import RegistrationForm from '../RegistrationForm/RegistrationForm.jsx';
 
 const SPREADSHEET_ID = '16V0Yg-Vz9LcqHBcrUjGEx_lfA38l4c3X4zq4t0VikDE';
 const SHEET_NAME = 'EventSheet1';
@@ -9,6 +10,8 @@ const API_KEY = 'AIzaSyBGLpJ8vDTlkxn2dS7quFPn7qpiVdn3Rsg';
 
 const CardEventList = () => {
   const [events, setEvents] = useState([]);
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -51,6 +54,8 @@ const CardEventList = () => {
 
   const handleRegister = id => {
     console.log(`Registering for event ID: ${id}`);
+    setSelectedEventId(id); // Зберігайте ID події
+    setShowRegistrationForm(true); // Відкриваємо форму
   };
 
   const handleView = id => {
@@ -72,6 +77,17 @@ const CardEventList = () => {
           className={css.eventCard}
         />
       ))}
+
+      {/* Умовний рендеринг форми */}
+      {showRegistrationForm && selectedEventId && (
+        <RegistrationForm
+          eventId={selectedEventId}
+          onRegister={() => {
+            console.log(`Registered for event ID: ${selectedEventId}`);
+            setShowRegistrationForm(false); // Закриваємо форму після реєстрації
+          }}
+        />
+      )}
     </div>
   );
 };

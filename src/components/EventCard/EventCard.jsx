@@ -2,11 +2,11 @@ import css from './EventCard.module.css';
 import { toast } from 'react-toastify';
 
 export default function EventCard({
+  id,
   title,
   description,
   date,
   organizer,
-  id,
   onRegister,
   onView,
   participants = [], // Додано параметр для учасників
