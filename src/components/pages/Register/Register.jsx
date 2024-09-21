@@ -1,13 +1,11 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import RegistrationForm from '../../RegistrationForm/RegistrationForm.jsx';
 
 const Register = () => {
   const { eventId } = useParams();
-  const navigate = useNavigate();
 
   const handleRegister = () => {
-    // Перенаправлення на домашню сторінку після реєстрації
-    navigate('/');
+    window.location.href = '/';
   };
 
   return (

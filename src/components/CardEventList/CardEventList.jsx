@@ -21,30 +21,23 @@ const CardEventList = () => {
         );
 
         const rows = response.data.values;
-        console.log('Fetched Rows:', rows);
 
         if (Array.isArray(rows)) {
           if (rows.length > 1) {
             const formattedEvents = rows.slice(1).map(row => ({
-              id: row[0] || 'No Id', // Event ID
-              title: row[1] || 'No Title', // Event Title
-              description: row[2] || 'No Description', // Event Description
-              date: row[3] || 'No Date', // Event Date
-              organizer: row[4] || 'No Organizer', // Organizer
+              id: row[0] || 'No Id',
+              title: row[1] || 'No Title',
+              description: row[2] || 'No Description',
+              date: row[3] || 'No Date',
+              organizer: row[4] || 'No Organizer',
             }));
 
-            console.log('Formatted Events:', formattedEvents);
             setEvents(formattedEvents);
-          } else {
-            console.log('No event data found.');
           }
-        } else {
-          console.error('Data is not an array:', rows);
         }
       } catch (error) {
-        console.error('Error fetching events:', error);
         if (error.response && error.response.status === 429) {
-          setTimeout(fetchEvents, 1000); // спробувати через 1 секунду
+          setTimeout(fetchEvents, 1000);
         }
       }
     };
@@ -53,15 +46,12 @@ const CardEventList = () => {
   }, []);
 
   const handleRegister = id => {
-    console.log(`Registering for event ID: ${id}`);
-    setSelectedEventId(id); // Зберігайте ID події
-    setShowRegistrationForm(true); // Відкриваємо форму
+    setSelectedEventId(id);
+    setShowRegistrationForm(true);
   };
 
-  const handleView = id => {
-    console.log(`Viewing participants for event ID: ${id}`);
-  };
-  console.log('Rendering events:', events);
+  const handleView = () => {};
+
   return (
     <div className={css.cardContainer}>
       {events.map(event => (
@@ -72,19 +62,17 @@ const CardEventList = () => {
           date={event.date}
           organizer={event.organizer}
           id={event.id}
-          onRegister={() => handleRegister(event.id)} // Передача ID для реєстрації
-          onView={() => handleView(event.id)} // Передача ID для перегляду
+          onRegister={() => handleRegister(event.id)}
+          onView={() => handleView(event.id)}
           className={css.eventCard}
         />
       ))}
 
-      {/* Умовний рендеринг форми */}
       {showRegistrationForm && selectedEventId && (
         <RegistrationForm
           eventId={selectedEventId}
           onRegister={() => {
-            console.log(`Registered for event ID: ${selectedEventId}`);
-            setShowRegistrationForm(false); // Закриваємо форму після реєстрації
+            setShowRegistrationForm(false);
           }}
         />
       )}

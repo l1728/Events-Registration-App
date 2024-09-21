@@ -26,7 +26,7 @@ const RegistrationForm = ({ eventId, onRegister }) => {
       });
 
       if (response.ok) {
-        onRegister(); // Виклик функції для обробки успішної реєстрації
+        onRegister();
         setFormData({
           fullName: '',
           email: '',

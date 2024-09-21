@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import ParticipantList from '../../ParticipantList/ParticipantList.jsx';
-// import { parseDate } from '../../utils/dateUtils.js';
 
 const SPREADSHEET_ID = '16V0Yg-Vz9LcqHBcrUjGEx_lfA38l4c3X4zq4t0VikDE';
 const API_KEY = 'AIzaSyBGLpJ8vDTlkxn2dS7quFPn7qpiVdn3Rsg';
@@ -25,11 +24,11 @@ const AboutEvent = () => {
           const formattedParticipants = rows
             .slice(1)
             .map(row => ({
-              name: row[0], // Participant Full Name
-              email: row[1], // Participant Email
-              dob: row[2], // Парсинг дати народження
-              referral: row[3], // Referral
-              eventId: row[4], // Event ID
+              name: row[0],
+              email: row[1],
+              dob: row[2],
+              referral: row[3],
+              eventId: row[4],
             }))
             .filter(participant => participant.eventId === eventId);
           setParticipants(formattedParticipants);

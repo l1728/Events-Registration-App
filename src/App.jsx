@@ -7,7 +7,6 @@ import Register from './components/pages/Register/Register.jsx';
 import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import ToastNotification from './components/ToastNotification/ToastNotification.jsx';
-import Navigation from './components/Navigation/Navigation.jsx';
 
 const SPREADSHEET_ID = '16V0Yg-Vz9LcqHBcrUjGEx_lfA38l4c3X4zq4t0VikDE';
 const API_KEY = 'AIzaSyBGLpJ8vDTlkxn2dS7quFPn7qpiVdn3Rsg';
@@ -44,7 +43,6 @@ const App = () => {
 
   return (
     <div>
-      <Navigation />
       {error && <div className="error-message">{error}</div>}
       <Routes>
         <Route path="/" element={<Home events={events} loading={loading} />} />

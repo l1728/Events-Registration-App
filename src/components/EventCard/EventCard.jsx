@@ -9,7 +9,7 @@ export default function EventCard({
   organizer,
   onRegister,
   onView,
-  participants = [], // Додано параметр для учасників
+  participants = [],
 }) {
   const handleViewClick = () => {
     if (participants.length === 0) {
@@ -52,20 +52,5 @@ export default function EventCard({
         </button>
       </div>
     </div>
-    // <div style={{ border: '1px solid black', padding: '10px', margin: '10px' }}>
-    //   <div style={{ marginBottom: '10px' }}>
-    //     <p>{title}</p>
-    //     <p>{date}</p>
-    //   </div>
-    //   <div style={{ marginBottom: '10px' }}>
-    //     <p>{description}</p>
-    //   </div>
-    //   <button type="button" onClick={handleRegisterClick}>
-    //     Register
-    //   </button>
-    //   <button type="button" onClick={handleViewClick}>
-    //     View
-    //   </button>
-    // </div>
   );
 }
